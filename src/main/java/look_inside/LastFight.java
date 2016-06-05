@@ -37,8 +37,8 @@ public class LastFight extends JFrame{
     private final String RESIDANCE_URL = "http://emg02.hostingradio.ru/ep-residance128.mp3";
 
     private String access_token;
-    private String login="89648972004";
-    private String password="47234723";
+    private String login;
+    private String password;
     private String station=EUROPA_URL;
 
     private Player player;
