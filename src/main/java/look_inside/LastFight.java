@@ -415,8 +415,13 @@ public class LastFight extends JFrame{
             getMessageFrame("Ошибка","Ошибка запроса");
             return false;
         }
-
-        JSONArray search_res = new JSONObject(stringBuilder.toString()).getJSONArray("response");
+        JSONArray search_res=null;
+        try{
+            search_res = new JSONObject(stringBuilder.toString()).getJSONArray("response");
+        }catch (JSONException e){
+            getMessageFrame("Ошибка", "Ошибка запроса");
+            return false;
+        }
 
         if(search_res.getInt(0)==0){
             req = "https://api.vk.com/method/audio.search?q="+music+
@@ -513,8 +518,7 @@ public class LastFight extends JFrame{
 
     private void stopPlayer(){
         if(playerThread!=null && playerThread.isAlive()){
-            player.close();
-            playerThread.interrupt();
+            playerThread.stop();
             playRadio.setText("Играть радио");
         }
     }
@@ -622,9 +626,7 @@ public class LastFight extends JFrame{
                     playerThread.start();
                     playRadio.setText("Стоп");
                 } else {
-                    player.close();
-                    playerThread.interrupt();
-                    playRadio.setText("Играть радио");
+                    stopPlayer();
                 }
             }
         });
